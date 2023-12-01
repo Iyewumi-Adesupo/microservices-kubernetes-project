@@ -1,0 +1,35 @@
+- hosts: worker
+  remote_user: ubuntu
+  become: true
+  become_method: sudo
+  become_user: root
+  gather_facts: false
+  connection: ssh
+
+  tasks:
+
+     - name: Generated token - 1.
+       local_action: shell sed -n 82,83p /tmp/token > /tmp/workertoken
+      
+     - name: Copy worker token
+       copy:
+        src: /tmp/workertoken
+        dest: /tmp/join-worker-command
+        owner: root
+        group: root
+        mode: '0777'
+
+     - name: Insert socket url at the back of token       
+       shell: sed -i '$ s/$/\ --cri-socket\ unix:\/\/\/var\/run\/cri-dockerd.sock/g' /tmp/join-worker-command
+
+     - name: Join workers to masters
+       command: sudo sh /tmp/join-worker-command
+   
+     - name: Copy the file from ansible host to worker nodes
+       copy: src=/home/ubuntu/config dest=/home/ubuntu
+
+     - name: make directory and copy required file to it
+       shell: |
+        sudo su -c 'mkdir -p $HOME/.kube' ubuntu
+        sudo su -c 'mv /home/ubuntu/config /home/ubuntu/.kube' ubuntu
+        sudo su -c 'sudo chown $(id -u):$(id -g) $HOME/.kube/config' ubuntu

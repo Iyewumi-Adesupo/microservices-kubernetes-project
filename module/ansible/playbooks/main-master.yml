@@ -1,0 +1,23 @@
+- hosts: main-master
+  become: true
+  vars_files: 
+    - /home/ubuntu/ha-ip.yml
+
+  tasks:
+    
+    - name: Initialize Kubernetes on Main Master Node
+      shell: sudo kubeadm init --pod-network-cidr="192.168.0.0/16" --cri-socket /run/cri-dockerd.sock --upload-certs --control-plane-endpoint {{Main_haIP}}:6443
+      register: output
+
+    - name: Storing Logs and Generated token for future purpose.
+      local_action: copy content={{ output.stdout }} dest="/tmp/token" mode=0777
+    
+    - name: make directory and copy required file to it
+      shell: |
+        sudo su -c 'mkdir -p $HOME/.kube' ubuntu
+        sudo su -c 'sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config' ubuntu
+        sudo su -c 'sudo chown $(id -u):$(id -g) $HOME/.kube/config' ubuntu
+    
+    - name: Fetch the config file from the main-master to ansible host
+      run_once: true
+      fetch: src=/home/ubuntu/.kube/config dest=/home/ubuntu/ flat=yes

@@ -1,0 +1,29 @@
+---
+- name: Download and install Prometheus stack Helm chart
+  hosts: HAproxy1-IP
+  become: true
+
+  vars:
+    namespace: monitoring
+    prometheus_port: 31090
+    grafana_port: 31300
+
+  tasks:
+  - name: Download and unpack Helm
+    shell: |
+      wget https://get.helm.sh/helm-v3.5.2-linux-amd64.tar.gz
+      tar -xvf helm-v3.5.2-linux-amd64.tar.gz
+      mv linux-amd64/helm /usr/local/bin/helm
+      rm -rvf helm-v3.5.2-linux-amd64.tar.gz
+
+  - name: Create namespace
+    shell: sudo su -c "kubectl create namespace "{{ namespace }}"" ubuntu
+
+  - name: Add the Prometheus stack Helm repo
+    shell: sudo su -c "helm repo add prometheus-community https://prometheus-community.github.io/helm-charts" ubuntu
+
+  - name: Update the Helm repo
+    shell: sudo su -c "helm repo update" ubuntu
+
+  - name: Install & Expose Prometheus & Grafana service
+    shell: sudo su -c "helm install prometheus-stack prometheus-community/kube-prometheus-stack --namespace "{{ namespace }}" --set prometheus.service.nodePort="{{ prometheus_port }}" --set prometheus.service.type=NodePort --set grafana.service.nodePort="{{ grafana_port }}" --set grafana.service.type=NodePort" ubuntu

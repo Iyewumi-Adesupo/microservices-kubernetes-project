@@ -1,0 +1,27 @@
+- hosts: member-master
+  become: true
+  gather_facts: true
+  tasks:
+
+    - name: Generated token to join master.
+      local_action: shell sed -n 72,74p /tmp/token > /tmp/mastertoken
+    
+    - name: Copy master token
+      copy:
+        src: /tmp/mastertoken
+        dest: /tmp/join-command
+        owner: root
+        group: root
+        mode: '0777'
+
+    - name: Insert socket url at the back of token
+      shell: sed -i '$ s/$/\ --cri-socket\ unix:\/\/\/var\/run\/cri-dockerd.sock/g' /tmp/join-command
+
+    - name: Add new Kubernetes master member
+      command: sh /tmp/join-command
+    
+    - name: make directory and copy required file to it
+      shell: |
+        sudo su -c 'mkdir -p $HOME/.kube' ubuntu
+        sudo su -c 'sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config' ubuntu
+        sudo su -c 'sudo chown $(id -u):$(id -g) $HOME/.kube/config' ubuntu

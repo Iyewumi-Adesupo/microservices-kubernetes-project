@@ -1,0 +1,14 @@
+variable "domain_name" {}
+variable "domain_name1" {}
+variable "domain_name2" {}
+variable "domain-name3" {}
+variable "domain-name4" {}
+variable "alt-domain" {}
+variable "stage_lb_dns_name" {}
+variable "stage_lb_zoneid" {}
+variable "prod_lb_dns_name" {}
+variable "prod_lb_zoneid" {}
+variable "grafana_lb_dns_name" {}
+variable "grafana_lb_zoneid" {}
+variable "prometheus_lb_dns_name" {}
+variable "prometheus_lb_zoneid" {}

@@ -1,0 +1,35 @@
+---
+ - hosts: haproxy1
+   tasks:
+     - name: Copy the file from ansible host to ha-lb
+       copy: src=/home/ubuntu/config dest=/home/ubuntu
+
+     - name: make directory and copy required file to it
+       shell: |
+        sudo su -c 'mkdir -p $HOME/.kube' ubuntu
+        sudo su -c 'mv /home/ubuntu/config /home/ubuntu/.kube' ubuntu
+        sudo su -c 'sudo chown $(id -u):$(id -g) $HOME/.kube/config' ubuntu
+
+     - name: Install Kubectl
+       shell: sudo snap install kubectl --classic
+
+     - name: Install weave pod network
+       command: kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+
+
+ - hosts: haproxy2
+   tasks:
+     - name: Copy the file from ansible host to ha-lb
+       copy: src=/home/ubuntu/config dest=/home/ubuntu
+
+     - name: make directory and copy required file to it
+       shell: |
+        sudo su -c 'mkdir -p $HOME/.kube' ubuntu
+        sudo su -c 'mv /home/ubuntu/config /home/ubuntu/.kube' ubuntu
+        sudo su -c 'sudo chown $(id -u):$(id -g) $HOME/.kube/config' ubuntu
+
+     - name: Install Kubectl
+       shell: sudo snap install kubectl --classic
+
+     - name: Install weave pod network
+       command: kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml

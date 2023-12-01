@@ -1,0 +1,16 @@
+variable "ami" {}
+variable "instance_type" {}
+variable "security_groups" {}
+variable "subnet_id" {}
+variable "key_name" {}
+variable "tag-ansible-server" {}
+variable "priv-key" {}
+variable "HAproxy1-IP" {}
+variable "HAproxy2-IP" {}
+variable "master1-IP" {}
+variable "master2-IP" {}
+variable "master3-IP" {}
+variable "worker1-IP" {}
+variable "worker2-IP" {}
+variable "worker3-IP" {}
+variable "bastion_host" {}

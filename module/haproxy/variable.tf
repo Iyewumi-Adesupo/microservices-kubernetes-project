@@ -1,0 +1,11 @@
+variable "ami" {}
+variable "instance_type" {}
+variable "security_group_ids" {}
+variable "subnet_id1" {}
+variable "subnet_id2" {}
+variable "key_name" {}
+variable "master1" {}
+variable "master2" {}
+variable "master3" {}
+variable "tag-HAProxy1" {}
+variable "tag-HAProxy1-backup" {}

@@ -1,0 +1,25 @@
+---
+ - hosts: HAproxy1-IP
+   become: true
+   
+   tasks:
+
+    - name: Updating Application Repo
+      shell: rm -rf US-Team-Sock-Shop-App-Repo
+      ignore_errors: true
+      args:
+        chdir: /home/ubuntu 
+
+    - name: Cloning Application Repo
+      shell: git clone https://github.com/CloudHight/US-Team-Sock-Shop-App-Repo.git
+
+    - name: Deleting Previous Deployment to stage-shop
+      shell: kubectl --kubeconfig=/home/ubuntu/.kube/config delete -f staging-complete.yaml
+      ignore_errors: true
+      args:
+        chdir: US-Team-Sock-Shop-App-Repo/deploy/kubernetes  
+
+    - name: Deploying Latest Features to stage-shop
+      shell: kubectl --kubeconfig=/home/ubuntu/.kube/config apply -f staging-complete.yaml
+      args:
+        chdir: US-Team-Sock-Shop-App-Repo/deploy/kubernetes

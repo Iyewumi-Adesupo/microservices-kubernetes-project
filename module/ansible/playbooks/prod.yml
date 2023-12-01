@@ -1,0 +1,15 @@
+---
+ - hosts: HAproxy1-IP
+   become: true
+   tasks:
+
+    - name: Deleting Previous Deployment to prod-shop
+      shell: kubectl --kubeconfig=/home/ubuntu/.kube/config delete -f prod-complete.yaml
+      ignore_errors: true
+      args:
+        chdir: US-Team-Sock-Shop-App-Repo/deploy/kubernetes
+
+    - name: Deploying Latest Features to prod-shop
+      shell: kubectl --kubeconfig=/home/ubuntu/.kube/config apply -f prod-complete.yaml 
+      args:
+        chdir:  US-Team-Sock-Shop-App-Repo/deploy/kubernetes
