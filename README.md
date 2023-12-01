@@ -64,3 +64,7 @@ HA-Proxy script can be seen below:
 <img width="730" alt="image" src="https://github.com/Iyewumi-Adesupo/microservices-kubernetes-project/assets/135404420/f9ba7362-eb55-47b5-a62d-b0172f21cc40">
 
 So the above screenshot shows the primary HA-Proxy server which serves as a load balancer for the master nodes and we also have the redundant HA-Proxy server where it spins up when the primary server has a failover. 
+
+<img width="736" alt="image" src="https://github.com/Iyewumi-Adesupo/microservices-kubernetes-project/assets/135404420/4882a570-b30c-4b9b-9976-2d530f181f56">
+
+Moreover, within this project, we intend to implement our infrastructure and applications through the CI/CD pipeline, incorporating parameterization into our actions. Our approach involves the installation of plugins using Terraform and AWS CLI, alongside the creation of necessary credentials. The utilization of POLL SCM for routine commits is crucial, as developers commit their changes from Terraform into their dedicated branch repositories. Following code reviews, these changes are pulled into the main branch, triggering the CI/CD pipeline for updates. The POLL SCM functionality plays a vital role in facilitating these routine commits to the infrastructure.
