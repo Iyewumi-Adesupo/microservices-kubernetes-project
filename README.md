@@ -14,11 +14,13 @@ Worker/Slave Node: Worker Node runs apps via Pods, and Master Node controls the 
 
 The setup for  this Kubernetes cluster will have seven servers:
 
- Three control plane machine (master node)
+ Three control plane machines (master node)
 
- One HA-Proxy server that will load balance the master node
+ Two HA-Proxy servers, in which one the HA-Proxy server that will load balance the master nodes while the second will be on redundancy. 
 
- Three Worker/Slave node to be used for running containerised workloads
+ We also utilize Keepalived, acting as a safeguard for the HA-Proxy servers. In the event of a failover on the active server, Keepalived facilitates communication with the backup HA-Proxy server using a shared virtual IP address. This communication ensures that the backup server takes over seamlessly until the primary server is restored.
+
+Three Worker/Slave nodes are to be used for running containerised workloads
 
  The prerequisite for this implementation are:
 
