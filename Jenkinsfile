@@ -8,7 +8,7 @@ pipeline {
             steps {
                 git branch: 'main',
                 credentialsId: 'git-cred',
-                url: 'https://github.com/CloudHight/13-NOVEMBER-Sock-Shop-Kubernetes-Project-Using-Ansible-EU-Team-2.git'
+                url: 'https://github.com/Iyewumi-Adesupo/microservices-kubernetes-project.git'
             }
         }
         stage('terraform init') {
