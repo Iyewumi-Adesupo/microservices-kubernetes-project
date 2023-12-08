@@ -1,5 +1,11 @@
 <h1 align="center" id="title">Microservices Kubernetes Project</h1>
 <p id="description">Kubernetes is an orchestrating and containerised application managing tools which can be  used on on-premise server or across hybrid cloud environments. Kubeadm is a tool provided with Kubernetes to help users install a production ready Kubernetes cluster with best practices enforcement. This documentation will show you how you can install a Kubernetes Cluster on Ubuntu with kubeadm.
+
+ Here is an architectural diagram of the project below:
+
+![image](https://github.com/Iyewumi-Adesupo/microservices-kubernetes-project/assets/135404420/b3645aab-1962-4bd6-9cbf-f2420d7d81ee)
+
+ 
 To deploy a Kubernetes cluster, two main servers are needed and they are:
 
 Master Node: It's the starting point for all administrative tasks, and its responsibility is managing the Kubernetes cluster architecture.
