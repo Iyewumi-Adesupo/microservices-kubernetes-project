@@ -5,7 +5,9 @@ In this project, Jenkins will operate independently. The Jenkins server will run
 
  Here is an architectural diagram of the project below:
 
-![image](https://github.com/Iyewumi-Adesupo/microservices-kubernetes-project/assets/135404420/b3645aab-1962-4bd6-9cbf-f2420d7d81ee)
+![image](https://github.com/Iyewumi-Adesupo/microservices-kubernetes-project/assets/135404420/0558029c-671f-4109-b905-a4a9f9e10565)
+
+![image](https://github.com/Iyewumi-Adesupo/microservices-kubernetes-project/assets/135404420/54523343-de30-4620-8158-fb7aa622574b)
 
  
 To deploy a Kubernetes cluster, two main servers are needed and they are:
